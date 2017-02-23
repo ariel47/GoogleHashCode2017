@@ -2,10 +2,6 @@ import numpy as np
 import os
 import sys, getopt
 
-videos = np.empty(0)
-endpoints = np.empty(0)
-requests = np.empty(0)
-
 cache_size = ""
 
 NOT_CONNECTED = np.inf
@@ -15,10 +11,6 @@ def parse_input(filename):
     file = open(filename, 'r')
     line = file.readline()
     first_line = line.split()
-
-    global endpoints
-    global requests
-    global videos
 
     endpoints = np.full((int(first_line[1]), int(first_line[3]) + 1), NOT_CONNECTED)
 
@@ -44,6 +36,8 @@ def parse_input(filename):
 
         requests[r] = line
 
+    return videos, endpoints, requests
+
 
 
 
@@ -60,7 +54,7 @@ def main():
             print('usage: HashCode.py -i input -o output')
             sys.exit()
         if opt in ("ifile", "-i"):
-            parse_input(arg)
+            videos, endpoints, requests = parse_input(arg)
 
 if __name__ == "__main__":
     main()
